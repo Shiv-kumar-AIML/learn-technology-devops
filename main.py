@@ -1,30 +1,17 @@
-from fastapi import FastAPI
+# from fastapi import FastAPI
 
-app = FastAPI()
-
-
-products ={"1":"apple", "2":"iphone" , "3":"samsumng", "4":"saku"}
-
-categories = ["mobile","laptop","pod", "headphones", "gpu", "cpu"]
+# app = FastAPI()
 
 
-@app.get('/search')
-async def search (q : str):
-    return {"search" : q }
+# products ={"1":"apple", "2":"iphone" , "3":"samsumng", "4":"saku"}
 
-@app.get('/items')
-async def items(limit : int):
-    if limit <= len(categories):
-        return {
-            "limit" : limit ,
-            "categories" : categories[:limit]
-                
-        }
+# categories = ["mobile","laptop","pod", "headphones", "gpu", "cpu"]
     
-## easy task 
+   
+# # easy task 
 # @app.get('/')
 # async def welcome():
-#     return {"message":"welcome user"}
+#     return {"message":"hello world"}
 
 
 # @app.get('/about/{name}/{age}')
@@ -47,3 +34,34 @@ async def items(limit : int):
 #         }
 #     else :
 #         return {"there is no product"}
+
+
+# @app.get('/search')
+# async def search (q : str):
+#     return {"search" : q }
+
+# @app.get('/items')
+# async def items(limit : int):
+#     if limit <= len(categories):
+#         return {
+#             "limit" : limit ,
+#             "categories" : categories[:limit]
+                
+#         }
+
+
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class input(BaseModel):
+    name : str
+    password : str
+class output(BaseModel):
+    name : str 
+
+@app.post("/user" , response_model=output)
+async def dev(user : input):
+    return user
