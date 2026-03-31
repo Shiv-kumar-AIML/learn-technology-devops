@@ -51,43 +51,58 @@
 
 
 
+# from fastapi import FastAPI
+# from pydantic import BaseModel
+
+# app = FastAPI()
+
+# class studentinput(BaseModel):
+#     name: str 
+#     marks :int
+
+# class studentoutput(BaseModel):
+#     name : str 
+#     result : str
+    
+# @app.post("/student" , response_model= studentoutput)
+# async def student(student : studentinput):
+#     result = "pass" if student.marks >=40 else "fail"
+#     return {
+#         "name" : student.name ,
+#         "result" : result ,
+#         "marks" : student.marks  ### it not print this {👉 FastAPI automatically removes extra field:}
+#     }
+    
+# class OrderInput(BaseModel):
+#     product_name: str
+#     price: float
+#     quantity: int
+#     discount: int
+
+# class OrderOutput(BaseModel):
+#     product_name: str
+#     final_price: float
+    
+# @app.post("/order", response_model=OrderOutput)
+# async def order(order : OrderInput):
+#     total_price = order.price * order.quantity
+#     final_price = total_price - (total_price * order.discount/ 100)
+#     return {
+#         "product_name" : order.product_name,
+#         "final_price" : final_price
+#     }
+
+
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi import HTTPException
 
 app = FastAPI()
 
-class studentinput(BaseModel):
-    name: str 
-    marks :int
 
-class studentoutput(BaseModel):
-    name : str 
-    result : str
+@app.post('/product/{id}')
+async def product(id:int):
+    if id != 1:
+        raise HTTPException(status_code=404 , detail= " product is not found")
+    return {"product" : "iphone"}
     
-@app.post("/student" , response_model= studentoutput)
-async def student(student : studentinput):
-    result = "pass" if student.marks >=40 else "fail"
-    return {
-        "name" : student.name ,
-        "result" : result ,
-        "marks" : student.marks  ### it not print this {👉 FastAPI automatically removes extra field:}
-    }
-    
-class OrderInput(BaseModel):
-    product_name: str
-    price: float
-    quantity: int
-    discount: int
-
-class OrderOutput(BaseModel):
-    product_name: str
-    final_price: float
-    
-@app.post("/order", response_model=OrderOutput)
-async def order(order : OrderInput):
-    total_price = order.price * order.quantity
-    final_price = total_price - (total_price * order.discount/ 100)
-    return {
-        "product_name" : order.product_name,
-        "final_price" : final_price
-    }
