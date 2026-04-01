@@ -6,3 +6,7 @@ class UserCreate(BaseModel):
 class UserResponse(BaseModel):
     id: int
     name: str
+
+class tablecreate(BaseModel):
+    id : int
+    name : str
