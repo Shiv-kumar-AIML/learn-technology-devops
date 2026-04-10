@@ -1,14 +1,13 @@
 from sqlalchemy import Column, Integer, String
+from api.Database import engine
 from sqlalchemy.orm import declarative_base
-from api.db import engine
 
 Base = declarative_base()
 
-class User(Base):
-    __tablename__ = "users"
+class Product(Base):
+    __tablename__ = "products"
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
 
-# Table create
 Base.metadata.create_all(bind=engine)

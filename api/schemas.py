@@ -10,3 +10,4 @@ class UserResponse(BaseModel):
 class tablecreate(BaseModel):
     id : int
     name : str
+    
