@@ -24,7 +24,6 @@ def login(user):
 print(login("shiv"))
 
 
-
 ## DATA_STRUCTURES
 
 # Type	         Use Case
@@ -33,3 +32,16 @@ print(login("shiv"))
 # Hash	         objects (like dict)
 # Set	             unique values
 # Sorted Set	     ranking, leaderboard
+
+r.rpush("tasks","shiv")
+r.rpush("tasks","divyansh")       # l,r ka khel h left right
+r.rpush("tasks","saksham")
+print(r.lrange("tasks",0,-1)) 
+
+r.lpop("tasks")    # --> rpop means right side element pop
+# r.delete("tasks") ---> for devete list
+print(r.lrange("tasks",0,-1)) 
+# print(set(r.lrange("tasks",0,-1)))
+r.delete("tasks")
+
+
